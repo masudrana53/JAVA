@@ -26,9 +26,7 @@ public class StringTest {
             }
             n--; 
         }
-        
-        
-        
+
         System.out.println("Maximum number is = "+max);
         System.out.println("Minimum number is = "+min);
         
