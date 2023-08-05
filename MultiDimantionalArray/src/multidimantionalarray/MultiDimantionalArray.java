@@ -37,32 +37,45 @@ public class MultiDimantionalArray {
 //            System.out.println("");
 //        }
         
-        
-
-        
-
 
 
         
-        Scanner input=new Scanner(System.in);
-        System.out.println("Enter row number");
-        int row=input.nextInt();
-        System.out.println("Enter column number");
-        int col=input.nextInt();
+//        Scanner input=new Scanner(System.in);
+//        System.out.println("Enter row number");
+//        int row=input.nextInt();
+//        System.out.println("Enter column number");
+//        int col=input.nextInt();
+//        
+//        int[][] matrix=new int [row][col];
+//        
+//        for(int i=0; i<row; i++){
+//            for(int j=0; j<col; j++){
+//                matrix[i][j]=(int)(Math.random()*100);
+//                System.out.print(i+","+j+"= "+matrix[i][j]+ "      ");
+//            }
+//            System.out.println("");
+//        }
         
-        int[][] matrix=new int [row][col];
+
         
-        for(int i=0; i<row; i++){
-            for(int j=0; j<col; j++){
-                matrix[i][j]=(int)(Math.random()*100);
-                System.out.print(i+","+j+"= "+matrix[i][j]+ "      ");
+//        System.out.println(Arrays.deepToString(matrix));
+
+
+        int[][] triangleArray = new int[5][];
+        triangleArray[0] = new int[5];
+        triangleArray[1] = new int[4];
+        triangleArray[2] = new int[3];
+        triangleArray[3] = new int[2];
+        triangleArray[4] = new int[1];
+        
+        for(int i=1; i<5; i++){
+            for (int j=1; i<5; i++){
+                System.out.println(triangleArray[i][j]+" ");
             }
             System.out.println("");
         }
         
-       
-        
-//        System.out.println(Arrays.deepToString(matrix));
+        System.out.println(Arrays.deepToString(triangleArray));
         
                
     }
