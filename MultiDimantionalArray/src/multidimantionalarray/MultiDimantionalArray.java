@@ -77,7 +77,7 @@ public class MultiDimantionalArray {
         
         System.out.println(Arrays.deepToString(triangleArray));
         
-               
+             
     }
     
 }
