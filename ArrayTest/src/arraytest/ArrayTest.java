@@ -59,6 +59,19 @@ public class ArrayTest {
             
 //            String[] subjects= {"JEE", "HTML", "GAVE", "CSS", "JSP"};
 //            System.out.println(Arrays.toString(subjects));
+
+
+
+              //Print an array and sum of the arry elements.
+              int[] thisArray = {12,52,5,102,25};
+              int sum=0;
+        
+              for(int i=0; i<thisArray.length; i++){
+              for(int j=0; j<thisArray.length - 1; j++){
+                sum +=thisArray[j];
+            }
+        }
+        System.out.println("Array is "+Arrays.toString(thisArray)+"\nSum is "+sum);
             
             
     
