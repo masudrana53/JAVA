@@ -17,16 +17,16 @@ public class FilePrintWriter2 {
         
         PrintWriter pw=new PrintWriter(file);
         
-        pw.println("Hello java");
+        pw.println("Hello java This is masud and updated");
         pw.close();
         
         
-        if (file.exists()){
-            System.out.println(read.nextLine());
-        }
-        else{
-            System.out.println("File is empty");
-        }
+//        if (file.exists()){
+//            System.out.println(read.nextLine());
+//        }
+//        else{
+//            System.out.println("File is empty");
+//        }
 
     }
 }
