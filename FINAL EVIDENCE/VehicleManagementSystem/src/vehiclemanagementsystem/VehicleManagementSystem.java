@@ -17,11 +17,18 @@ public class VehicleManagementSystem {
         
         car.start();
         car.stop();
-        car.details();
+//        car.details();
+
+        //For toString
+        System.out.println(car.toString());
+       
              
         motorCycle.start();
         motorCycle.stop();
-        motorCycle.details();
+//        motorCycle.details();
+
+        //For toString
+        System.out.println(motorCycle.toString());
         
         
         

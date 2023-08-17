@@ -2,16 +2,16 @@
 package pack;
 
 
-public abstract class Vehicle {
+public abstract class Vahicle {
     
     private String registrationNumber; 
-    private String brand;
+    private String brand;  
     private int year;
 
-    public Vehicle() {
+    public Vahicle() {
     }
 
-    public Vehicle(String registrationNumber, String brand, int year) {
+    public Vahicle(String registrationNumber, String brand, int year) {
         this.registrationNumber = registrationNumber;
         this.brand = brand;
         this.year = year;
@@ -41,31 +41,14 @@ public abstract class Vehicle {
         this.year = year;
     }
     
-   
+    
+    
     public void details(){
-        System.out.println("Brand name is "+brand+ "Registration number is "
-                +registrationNumber+" Year is "+year);
+        System.out.println("Registration no is "+registrationNumber+" Brand is "+brand+" Year is "+year);
     }
-    
-    
-    // Create method
+   
     public abstract void start();
     public abstract void stop();
-    
-    
-    
-
-    @Override
-    public String toString() {
-        return "Vehicle{" + "registrationNumber=" + registrationNumber + ", brand=" + brand + ", year=" + year + '}';
-    }
-    
-    
-    
-
-   
-    
-    
     
     
 }

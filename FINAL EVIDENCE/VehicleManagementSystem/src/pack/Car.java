@@ -27,6 +27,15 @@ public class Car extends Vehicle {
     public void details() {
         super.details(); //To change body of generated methods, choose Tools | Templates.
     }
+
+    
+//    @Override
+//    public String toString() {
+//        return "Vehicle{" + "registrationNumber=" + super.getRegistrationNumber() + ", brand=" + super.getBrand() + ", year=" + super.getYear() + '}'; //To change body of generated methods, choose Tools | Templates.
+//    }
+    
+    
+    
     
     
 }
