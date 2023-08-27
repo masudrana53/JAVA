@@ -15,16 +15,12 @@ public class CollectionTest {
         
         cars.add("Toyota");
         cars.add("BMW");
-        cars.add(e);
         
-        System.out.println("cars");
-        System.out.println("cars.size");
-        System.out.println("cars"
-                + ""
-                + ""
-                + ""
-                + ""
-                + "
+        
+        System.out.println(cars);
+//        System.out.println(cars.size);
+//        System.out.println("cars");
+
     }
     
 }
