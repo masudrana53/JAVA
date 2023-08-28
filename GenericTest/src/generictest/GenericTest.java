@@ -17,6 +17,9 @@ public class GenericTest {
         
         AdditionG_Class<Float,Character> object2=new AdditionG_Class<Float,Character>(52.0f, 'a');
         object2.getMethod();
+        
+        AdditionG_Class<Double,Long> object3=new AdditionG_Class<Double,Long>(Math.PI, 455l);
+        object3.getMethod();
     }
     
 }
