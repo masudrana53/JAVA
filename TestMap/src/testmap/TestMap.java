@@ -16,6 +16,7 @@ public class TestMap {
         hashMap.put("Hasan", 28);
         hashMap.put("Tameem", 52);
         
+       
         System.out.println("Display entries in hashMap");
         System.out.println(hashMap +"\n");
         

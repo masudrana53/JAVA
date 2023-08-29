@@ -27,8 +27,8 @@ public class TestHashSet {
 //            System.out.println(el);
 //        }
         
-        List<String> list=new ArrayList<>
-        for (int index=0)
+//        List<String> list=new ArrayList<>
+//        for (int index=0)
         
     }
 }
