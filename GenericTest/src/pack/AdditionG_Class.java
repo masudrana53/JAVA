@@ -20,8 +20,8 @@ public class AdditionG_Class <DataType, DataType1> {
     }
     
     
-    public DataType getMthod1(){
-        return variableName;
+//    public DataType getMthod1(){
+//        return variableName;
         
     }
     
