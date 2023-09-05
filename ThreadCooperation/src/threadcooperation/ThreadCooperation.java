@@ -1,20 +1,40 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
+
 package threadcooperation;
 
-/**
- *
- * @author user
- */
+import java.util.concurrent.locks.ReentrantLock;
+
+
 public class ThreadCooperation {
 
-    /**
-     * @param args the command line arguments
-     */
+    
     public static void main(String[] args) {
-        // TODO code application logic here
+        
+        
     }
     
-}
+    public static class DepositTask implements Runnable{
+
+        @Override
+        public void run() {
+            while(true){
+            
+            }
+        }
+
+    }
+    
+    public static class WithdrawTask implements Runnable{
+
+        @Override
+        public void run() {
+            throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        }
+        
+    }
+ 
+    private static class Account(){
+        private 
+                static Lock lock=new ReentrantLock();
+        }
+    }
+
