@@ -1,0 +1,12 @@
+Name= fssdafs
+
+Address= asdfsd
+
+Date= Mon Sep 04 11:20:15 BDT 2023
+
+Subject= JEE
+
+Hobby= [Reading, Travelling, Programming]
+
+Gender= Male
+
