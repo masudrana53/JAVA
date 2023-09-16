@@ -31,10 +31,10 @@ public class EmailCheck extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        txtEmail = new javax.swing.JTextField();
         lvlOutput = new javax.swing.JLabel();
-        txtButton = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        txtEmail = new javax.swing.JTextField();
+        btnEmail = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -59,14 +59,18 @@ public class EmailCheck extends javax.swing.JFrame {
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel2.setText("Email:");
+        jLabel3.setText("Email:");
 
-        txtButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txtButton.setText("Check");
-        txtButton.addMouseListener(new java.awt.event.MouseAdapter() {
+        txtEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEmailActionPerformed(evt);
+            }
+        });
+
+        btnEmail.setText("Check mail");
+        btnEmail.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtButtonMouseClicked(evt);
+                btnEmailMouseClicked(evt);
             }
         });
 
@@ -78,52 +82,55 @@ public class EmailCheck extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(59, 59, 59)
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lvlOutput, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(43, 43, 43)
+                                .addComponent(lvlOutput, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(153, 153, 153)
-                        .addComponent(txtButton)))
-                .addContainerGap(46, Short.MAX_VALUE))
+                        .addGap(139, 139, 139)
+                        .addComponent(btnEmail)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
+                .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(50, 50, 50)
                 .addComponent(lvlOutput)
-                .addGap(60, 60, 60)
-                .addComponent(txtButton)
-                .addGap(0, 70, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                .addComponent(btnEmail)
+                .addGap(33, 33, 33))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtButtonMouseClicked
+    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEmailActionPerformed
+
+    private void btnEmailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEmailMouseClicked
         // TODO add your handling code here:
         
-        String email=txtEmail.getText();
-        String pattern="^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+        String email= txtEmail.getText().trim();
+        String pattern= "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
         
         if(email.matches(pattern)){
             lvlOutput.setText("Email is valid");
-            lvlOutput.setForeground(Color.BLUE);
-            JOptionPane.showMessageDialog(rootPane, "Data saved");
+            lvlOutput.setForeground(Color.blue);
         }
         else{
             lvlOutput.setText("Email is not valid");
-            lvlOutput.setForeground(Color.red);
-            JOptionPane.showMessageDialog(rootPane, "Data not saved");
-        }
-    }//GEN-LAST:event_txtButtonMouseClicked
+            lvlOutput.setForeground(Color.red);}
+    }//GEN-LAST:event_btnEmailMouseClicked
 
     /**
      * @param args the command line arguments
@@ -161,11 +168,11 @@ public class EmailCheck extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEmail;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lvlOutput;
-    private javax.swing.JButton txtButton;
     private javax.swing.JTextField txtEmail;
     // End of variables declaration//GEN-END:variables
 }
