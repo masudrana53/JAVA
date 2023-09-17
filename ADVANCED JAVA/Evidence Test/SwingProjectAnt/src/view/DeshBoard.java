@@ -27,30 +27,28 @@ public class DeshBoard extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel4 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        btnHome = new javax.swing.JButton();
-        btnSales = new javax.swing.JButton();
-        btnPurchase = new javax.swing.JButton();
-        btnPaid = new javax.swing.JButton();
-        btnAdvanced = new javax.swing.JButton();
-        Menu = new javax.swing.JTabbedPane();
-        jTabbedPane4 = new javax.swing.JTabbedPane();
-        jPanel7 = new javax.swing.JPanel();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jTabbedPane5 = new javax.swing.JTabbedPane();
-        jPanel6 = new javax.swing.JPanel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jTabbedPane6 = new javax.swing.JTabbedPane();
-        jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
-        jTabbedPane3 = new javax.swing.JTabbedPane();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jTabbedPane2 = new javax.swing.JTabbedPane();
-        jPanel3 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
+        jTextArea1 = new javax.swing.JTextArea();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        btnHome = new javax.swing.JLabel();
+        btnSales = new javax.swing.JLabel();
+        btnProduct = new javax.swing.JLabel();
+        btnDiscount = new javax.swing.JLabel();
+        btnTotal = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        MainTap = new javax.swing.JTabbedPane();
+        Home = new javax.swing.JTabbedPane();
+        jLabel2 = new javax.swing.JLabel();
+        Sales = new javax.swing.JTabbedPane();
+        jLabel3 = new javax.swing.JLabel();
+        Product = new javax.swing.JTabbedPane();
+        jLabel4 = new javax.swing.JLabel();
+        Discount = new javax.swing.JTabbedPane();
+        jButton1 = new javax.swing.JButton();
+        Total = new javax.swing.JTabbedPane();
+        jLabel5 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -63,21 +61,36 @@ public class DeshBoard extends javax.swing.JFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jTextArea1.setText("Welcome to Products");
+        jScrollPane1.setViewportView(jTextArea1);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(102, 255, 255));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel8.setPreferredSize(new java.awt.Dimension(590, 40));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Dash Board");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 6, 764, -1));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("From");
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 70));
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
 
-        jPanel1.setBackground(new java.awt.Color(102, 255, 255));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 60));
+
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
         btnHome.setText("Home");
         btnHome.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -85,12 +98,6 @@ public class DeshBoard extends javax.swing.JFrame {
                 btnHomeMouseClicked(evt);
             }
         });
-        btnHome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHomeActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 90, -1));
 
         btnSales.setText("Sales");
         btnSales.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -98,174 +105,128 @@ public class DeshBoard extends javax.swing.JFrame {
                 btnSalesMouseClicked(evt);
             }
         });
-        jPanel1.add(btnSales, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 90, -1));
 
-        btnPurchase.setText("Purchase");
-        btnPurchase.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnProduct.setText("Product");
+        btnProduct.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnPurchaseMouseClicked(evt);
+                btnProductMouseClicked(evt);
             }
         });
-        jPanel1.add(btnPurchase, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 90, -1));
 
-        btnPaid.setText("Paid");
-        btnPaid.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnDiscount.setText("Discount");
+        btnDiscount.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnPaidMouseClicked(evt);
+                btnDiscountMouseClicked(evt);
             }
         });
-        jPanel1.add(btnPaid, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 90, -1));
 
-        btnAdvanced.setText("Advanced");
-        btnAdvanced.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnTotal.setText("Total");
+        btnTotal.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnAdvancedMouseClicked(evt);
+                btnTotalMouseClicked(evt);
             }
         });
-        jPanel1.add(btnAdvanced, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 90, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 76, -1, 360));
-
-        jRadioButton2.setText("jRadioButton2");
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(192, 192, 192)
-                .addComponent(jRadioButton2)
-                .addContainerGap(360, Short.MAX_VALUE))
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnTotal)
+                    .addComponent(btnDiscount)
+                    .addComponent(btnProduct)
+                    .addComponent(btnSales)
+                    .addComponent(btnHome))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(124, 124, 124)
-                .addComponent(jRadioButton2)
-                .addContainerGap(204, Short.MAX_VALUE))
-        );
-
-        jTabbedPane4.addTab("tab1", jPanel7);
-
-        Menu.addTab("tab3", jTabbedPane4);
-
-        jRadioButton1.setText("jRadioButton1");
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(90, 90, 90)
-                .addComponent(jRadioButton1)
-                .addContainerGap(462, Short.MAX_VALUE))
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(152, 152, 152)
-                .addComponent(jRadioButton1)
-                .addContainerGap(176, Short.MAX_VALUE))
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(btnHome)
+                .addGap(30, 30, 30)
+                .addComponent(btnSales)
+                .addGap(40, 40, 40)
+                .addComponent(btnProduct)
+                .addGap(38, 38, 38)
+                .addComponent(btnDiscount)
+                .addGap(40, 40, 40)
+                .addComponent(btnTotal)
+                .addContainerGap(127, Short.MAX_VALUE))
         );
 
-        jTabbedPane5.addTab("tab1", jPanel6);
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, 380));
 
-        Menu.addTab("tab4", jTabbedPane5);
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(jList1);
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 3, 36)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Welcome To Home");
+        Home.addTab("tab1", jLabel2);
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(61, 61, 61)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(542, Short.MAX_VALUE))
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(72, 72, 72)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(130, Short.MAX_VALUE))
-        );
+        MainTap.addTab("tab1", Home);
 
-        jTabbedPane6.addTab("tab1", jPanel5);
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 3, 36)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Welcome to Sales");
+        Sales.addTab("tab1", jLabel3);
 
-        Menu.addTab("tab5", jTabbedPane6);
+        MainTap.addTab("tab2", Sales);
 
-        jCheckBox1.setText("jCheckBox1");
-        jTabbedPane3.addTab("tab1", jCheckBox1);
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 3, 36)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Welcome to products");
+        Product.addTab("tab1", jLabel4);
 
-        Menu.addTab("tab2", jTabbedPane3);
+        MainTap.addTab("tab3", Product);
 
-        jButton2.setText("jButton2");
+        jButton1.setFont(new java.awt.Font("Segoe UI", 3, 36)); // NOI18N
+        jButton1.setText("Welcome to Discount");
+        Discount.addTab("tab1", jButton1);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addComponent(jButton2)
-                .addContainerGap(527, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(261, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addGap(65, 65, 65))
-        );
+        MainTap.addTab("tab4", Discount);
 
-        jTabbedPane2.addTab("tab1", jPanel3);
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 3, 36)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Welcome to Total");
+        Total.addTab("tab1", jLabel5);
 
-        Menu.addTab("tab1", jTabbedPane2);
+        MainTap.addTab("tab5", Total);
 
-        getContentPane().add(Menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 650, 410));
+        jPanel2.add(MainTap, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -60, 570, 440));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 60, 570, 380));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHomeMouseClicked
         // TODO add your handling code here:
-        
-        Menu.setSelectedIndex(0);
-        
+        MainTap.setSelectedIndex(0);
     }//GEN-LAST:event_btnHomeMouseClicked
-
-    private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnHomeActionPerformed
 
     private void btnSalesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalesMouseClicked
         // TODO add your handling code here:
-        
-        Menu.setSelectedIndex(1);
+        MainTap.setSelectedIndex(1);
     }//GEN-LAST:event_btnSalesMouseClicked
 
-    private void btnPurchaseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPurchaseMouseClicked
+    private void btnProductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProductMouseClicked
         // TODO add your handling code here:
-        
-        Menu.setSelectedIndex(3);
-    }//GEN-LAST:event_btnPurchaseMouseClicked
+        MainTap.setSelectedIndex(2);
+    }//GEN-LAST:event_btnProductMouseClicked
 
-    private void btnPaidMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPaidMouseClicked
+    private void btnDiscountMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDiscountMouseClicked
         // TODO add your handling code here:
-        
-        Menu.setSelectedIndex(4);
-    }//GEN-LAST:event_btnPaidMouseClicked
+        MainTap.setSelectedIndex(3);
+    }//GEN-LAST:event_btnDiscountMouseClicked
 
-    private void btnAdvancedMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAdvancedMouseClicked
+    private void btnTotalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTotalMouseClicked
         // TODO add your handling code here:
-        Menu.setSelectedIndex(5);
-    }//GEN-LAST:event_btnAdvancedMouseClicked
+        MainTap.setSelectedIndex(4);
+    }//GEN-LAST:event_btnTotalMouseClicked
 
     /**
      * @param args the command line arguments
@@ -303,30 +264,28 @@ public class DeshBoard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTabbedPane Menu;
-    private javax.swing.JButton btnAdvanced;
-    private javax.swing.JButton btnHome;
-    private javax.swing.JButton btnPaid;
-    private javax.swing.JButton btnPurchase;
-    private javax.swing.JButton btnSales;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JTabbedPane Discount;
+    private javax.swing.JTabbedPane Home;
+    private javax.swing.JTabbedPane MainTap;
+    private javax.swing.JTabbedPane Product;
+    private javax.swing.JTabbedPane Sales;
+    private javax.swing.JTabbedPane Total;
+    private javax.swing.JLabel btnDiscount;
+    private javax.swing.JLabel btnHome;
+    private javax.swing.JLabel btnProduct;
+    private javax.swing.JLabel btnSales;
+    private javax.swing.JLabel btnTotal;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JList<String> jList1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTabbedPane jTabbedPane2;
-    private javax.swing.JTabbedPane jTabbedPane3;
-    private javax.swing.JTabbedPane jTabbedPane4;
-    private javax.swing.JTabbedPane jTabbedPane5;
-    private javax.swing.JTabbedPane jTabbedPane6;
+    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }
