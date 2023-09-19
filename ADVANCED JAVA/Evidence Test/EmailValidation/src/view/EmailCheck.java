@@ -119,17 +119,23 @@ public class EmailCheck extends javax.swing.JFrame {
 
     private void btnEmailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEmailMouseClicked
         // TODO add your handling code here:
+
+        String email = txtEmail.getText().trim();
+        String pattern = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+
+        if (email.isEmpty()) {
+            JOptionPane.showMessageDialog(rootPane, "Enter Value"); 
+        } 
         
-        String email= txtEmail.getText().trim();
-        String pattern= "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
-        
-        if(email.matches(pattern)){
+        else if (email.matches(pattern)) {
             lvlOutput.setText("Email is valid");
             lvlOutput.setForeground(Color.blue);
-        }
-        else{
+        } 
+        
+        else {
             lvlOutput.setText("Email is not valid");
-            lvlOutput.setForeground(Color.red);}
+            lvlOutput.setForeground(Color.red);
+        }
     }//GEN-LAST:event_btnEmailMouseClicked
 
     /**
