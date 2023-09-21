@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 
 
@@ -59,7 +60,7 @@ public class StudentView extends javax.swing.JFrame {
         txtFemale = new javax.swing.JRadioButton();
         txtSubmit = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblStudent = new javax.swing.JTable();
         btnTable = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -120,9 +121,9 @@ public class StudentView extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addGap(34, 34, 34)
                 .addComponent(jLabel5)
-                .addGap(40, 40, 40)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel6)
-                .addGap(39, 39, 39)
+                .addGap(61, 61, 61)
                 .addComponent(jLabel7)
                 .addContainerGap(76, Short.MAX_VALUE))
         );
@@ -155,7 +156,7 @@ public class StudentView extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblStudent.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -166,7 +167,7 @@ public class StudentView extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblStudent);
 
         btnTable.setText("Submit For Table");
         btnTable.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -336,6 +337,51 @@ public class StudentView extends javax.swing.JFrame {
     private void btnTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTableMouseClicked
         // TODO add your handling code here:
         
+        List<String> hobby=new ArrayList<>();
+        
+        if(txtReading.isSelected()){
+            hobby.add("Reading");
+        }
+        if(txtTravelling.isSelected()){
+            hobby.add("Travelling");
+        }
+        if(txtProgramming.isSelected()){
+            hobby.add("Programming");
+        }
+        
+        
+        String gender="";
+        if(txtMale.isSelected()){
+            gender="Male";
+        }
+        else if(txtFemale.isSelected()){
+            gender="Female";
+        }
+        else{
+            gender="Nothing is found";
+        }
+        
+        
+        String[] columnName=new String[6];
+//        ("Name", "Address", "Date", "Subject", "Hobby", "Gender");
+        columnName[0]="Name";
+        columnName[1]="Address";
+        columnName[2]="Date";
+        columnName[3]="Subject";
+        columnName[4]="Hobby";
+        columnName[5]="Gender";
+        
+        String[][] dataName=new String[1][columnName.length];
+        dataName[0][0]=txtName.getText().trim();
+        dataName[0][1]=txtAddress.getText().trim();
+        dataName[0][2]=txtDob.getDate().toString();
+        dataName[0][3]=comboSubject.getSelectedItem().toString();
+        dataName[0][4]=hobby.toString();
+        dataName[0][5]=gender;
+        
+        DefaultTableModel model=new DefaultTableModel(dataName, columnName);
+        tblStudent.setModel(model);
+        
     }//GEN-LAST:event_btnTableMouseClicked
 
     /**
@@ -388,7 +434,7 @@ public class StudentView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblStudent;
     private javax.swing.JTextField txtAddress;
     private com.toedter.calendar.JDateChooser txtDob;
     private javax.swing.JRadioButton txtFemale;
