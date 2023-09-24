@@ -6,6 +6,11 @@ package view;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -13,12 +18,11 @@ import java.sql.ResultSet;
  */
 public class DashBoard extends javax.swing.JFrame {
     
-    
     DbCon con=new DbCon();
     PreparedStatement ps;
     String sql="";
     ResultSet rs;
-
+  
     /**
      * Creates new form DbCon
      */
@@ -202,6 +206,23 @@ public class DashBoard extends javax.swing.JFrame {
 
     private void btnSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSaveMouseClicked
         // TODO add your handling code here:
+        
+        sql="INSERT INTO employee(name, designation, salary) value(?,?,?)";
+        
+        try {
+            ps=con.getCon().prepareStatement(sql);
+            ps.setString(1, txtName.getText().trim());
+            ps.setString(2, txtDesignation.getText().trim());
+            ps.setFloat(3, Float.parseFloat(txtSalary.getText().trim()));
+            ps.executeUpdate();
+            ps.close();
+            
+            JOptionPane.showMessageDialog(rootPane, "Data saved");
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DashBoard.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         
         
     }//GEN-LAST:event_btnSaveMouseClicked
