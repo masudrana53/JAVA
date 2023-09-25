@@ -4,12 +4,17 @@
  */
 package view;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+
 
 
 /**
@@ -28,6 +33,115 @@ public class DashBoard extends javax.swing.JFrame {
      */
     public DashBoard() {
         initComponents();
+        
+        getDataFromTable();
+        
+    }
+    
+    
+    
+    //Date format method
+    //conver to util date to sql date
+    public static Date convertDateToUtil(java.util.Date utilDate){
+        if(utilDate != null){
+            return new Date(utilDate.getTime());
+        }
+        return null;
+    }
+    
+    
+    // Date method String to Utill
+    public static java.util.Date convertStringToDate(String dateString){
+        SimpleDateFormat dateFormat=new SimpleDateFormat("YYYY-MM-DD");
+        
+        try {
+            return dateFormat.parse(dateString);
+        } catch (Exception e) {
+            System.err.print("paring failed"+e);
+            return null;
+        }
+        
+    }
+    
+    
+    
+    
+    //Method for gender
+    public String getGender(){
+        String gender="";
+        
+        if(checkMale.isSelected()){
+            gender="Male";
+        }
+        else if(checkFemale.isSelected()){
+            gender="Female";
+        }
+        else{gender="Not Selected";
+        }
+        
+        return gender;
+    }
+    
+    
+    //Method for hobby
+    public String getHobby(){
+        String hobby="";
+        
+        if(checkProgramming.isSelected()){
+            hobby=hobby+"Programming";
+        }
+        
+        if(checkDesigning.isSelected()){
+            hobby=hobby+"Designing";
+        }
+       
+       
+        
+        return hobby;
+    }
+    
+    
+    //Insert data from mysql table
+    String[] tableColumns={"ID", "NAME", "DESIGNATION", "SALARY", "Date", "Gender", "Hobby", "Subject"};
+    
+    public void getDataFromTable(){
+        DefaultTableModel model=new DefaultTableModel();
+        model.setColumnIdentifiers(tableColumns);
+        
+        tblEmployee.setModel(model);
+        
+        sql="select * from employee";
+        
+        try {
+            ps=con.getCon().prepareStatement(sql);
+            
+            rs=ps.executeQuery();
+            
+            while(rs.next()){
+                int id=rs.getInt("id");
+                String name=rs.getString("name");
+                String designation=rs.getString("designation");
+                float salary=rs.getFloat("salary");
+                Date date=rs.getDate("date");
+                String gender=rs.getString("gender");
+                String hobby=rs.getString("hobby");
+                String subject=rs.getString("subject");
+                
+                
+                
+                model.addRow(new Object[]{id,name,designation,salary,date,gender,hobby,subject});               
+            }
+            ps.close();
+            con.getCon().close();
+//            JOptionPane.showMessageDialog(rootPane, "Data Saved");
+            
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DashBoard.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
     }
 
     /**
@@ -39,6 +153,7 @@ public class DashBoard extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -50,11 +165,22 @@ public class DashBoard extends javax.swing.JFrame {
         txtName = new javax.swing.JTextField();
         txtDesignation = new javax.swing.JTextField();
         txtSalary = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        txtDate = new com.toedter.calendar.JDateChooser();
+        checkMale = new javax.swing.JRadioButton();
+        checkFemale = new javax.swing.JRadioButton();
+        comboSubject = new javax.swing.JComboBox<>();
+        checkProgramming = new javax.swing.JCheckBox();
+        checkDesigning = new javax.swing.JCheckBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblEmployee = new javax.swing.JTable();
         btnSave = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
+        btnReset = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -94,30 +220,85 @@ public class DashBoard extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Salary");
 
+        txtID.setEditable(false);
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Date");
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Gender");
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Hobby");
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("Subject");
+
+        buttonGroup1.add(checkMale);
+        checkMale.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        checkMale.setForeground(new java.awt.Color(255, 255, 255));
+        checkMale.setText("Male");
+
+        buttonGroup1.add(checkFemale);
+        checkFemale.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        checkFemale.setForeground(new java.awt.Color(255, 255, 255));
+        checkFemale.setText("Female");
+
+        comboSubject.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "JEE", "PHP", "GAVE", "DDD" }));
+
+        checkProgramming.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        checkProgramming.setForeground(new java.awt.Color(255, 255, 255));
+        checkProgramming.setText("Programming");
+
+        checkDesigning.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        checkDesigning.setForeground(new java.awt.Color(255, 255, 255));
+        checkDesigning.setText("Designing");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                        .addGap(46, 46, 46)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtID)
-                            .addComponent(txtName, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel5))
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtSalary)
-                            .addComponent(txtDesignation))))
-                .addGap(24, 24, 24))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(checkMale)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(checkFemale))
+                            .addComponent(comboSubject, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(checkProgramming)
+                                .addGap(18, 18, 18)
+                                .addComponent(checkDesigning))
+                            .addComponent(txtDesignation)))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel5)
+                            .addGap(43, 43, 43)
+                            .addComponent(txtSalary, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel3))
+                            .addGap(46, 46, 46)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtID)
+                                .addComponent(txtName, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)))))
+                .addContainerGap(91, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,7 +319,25 @@ public class DashBoard extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtSalary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(checkMale)
+                    .addComponent(checkFemale))
+                .addGap(31, 31, 31)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(checkProgramming)
+                    .addComponent(checkDesigning))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(comboSubject, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
+                .addGap(35, 35, 35))
         );
 
         tblEmployee.setModel(new javax.swing.table.DefaultTableModel(
@@ -152,6 +351,11 @@ public class DashBoard extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblEmployee.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblEmployeeMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblEmployee);
 
         btnSave.setText("Save");
@@ -162,8 +366,20 @@ public class DashBoard extends javax.swing.JFrame {
         });
 
         btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         btnUpdate.setText("Update");
+        btnUpdate.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnUpdateMouseClicked(evt);
+            }
+        });
+
+        btnReset.setText("Reset");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -171,34 +387,38 @@ public class DashBoard extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addComponent(btnSave)
-                .addGap(18, 18, 18)
-                .addComponent(btnDelete)
-                .addGap(18, 18, 18)
-                .addComponent(btnUpdate)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 623, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(btnSave)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnUpdate)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnReset)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnDelete)))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(36, 36, 36)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnUpdate)
                     .addComponent(btnSave)
-                    .addComponent(btnDelete)
-                    .addComponent(btnUpdate))
-                .addContainerGap(103, Short.MAX_VALUE))
+                    .addComponent(btnReset)
+                    .addComponent(btnDelete))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         pack();
@@ -206,26 +426,102 @@ public class DashBoard extends javax.swing.JFrame {
 
     private void btnSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSaveMouseClicked
         // TODO add your handling code here:
-        
-        sql="INSERT INTO employee(name, designation, salary) value(?,?,?)";
+        sql= "INSERT INTO employee(name, designation, salary, date, gender, hobby, subject)value(?,?,?,?,?,?,?)";
         
         try {
             ps=con.getCon().prepareStatement(sql);
             ps.setString(1, txtName.getText().trim());
             ps.setString(2, txtDesignation.getText().trim());
             ps.setFloat(3, Float.parseFloat(txtSalary.getText().trim()));
+            ps.setDate(4, convertDateToUtil(txtDate.getDate()));
+            ps.setString(5, getGender());
+            ps.setString(6, getHobby());
+            ps.setString(7, comboSubject.getSelectedItem().toString());
+            
+           
+            
             ps.executeUpdate();
             ps.close();
             
-            JOptionPane.showMessageDialog(rootPane, "Data saved");
+            JOptionPane.showMessageDialog(rootPane, "Data Saved");
             
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Data not saved"+ex);
             Logger.getLogger(DashBoard.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        getDataFromTable();
+        
+       
         
         
     }//GEN-LAST:event_btnSaveMouseClicked
+
+    private void tblEmployeeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEmployeeMouseClicked
+        // TODO add your handling code here:
+        
+        int row=tblEmployee.getSelectedRow();
+        
+        String id=tblEmployee.getModel().getValueAt(row, 0).toString();
+        String name=tblEmployee.getModel().getValueAt(row, 1).toString();
+        String designation=tblEmployee.getModel().getValueAt(row, 2).toString();
+        String salary=tblEmployee.getModel().getValueAt(row, 3).toString();
+        String date=tblEmployee.getModel().getValueAt(row, 4).toString();
+        String gender=tblEmployee.getModel().getValueAt(row, 5).toString();
+        String hobby=tblEmployee.getModel().getValueAt(row, 6).toString();
+        String subject=tblEmployee.getModel().getValueAt(row, 7).toString();
+        
+        
+        txtID.setText(id);
+        txtName.setText(name);
+        txtDesignation.setText(designation);
+        txtSalary.setText(salary);
+        txtDate.setDate( convertStringToDate(date));
+        
+        if(gender.equalsIgnoreCase("Male")){
+            checkMale.setSelected(rootPaneCheckingEnabled);
+        }
+        else if(gender.equalsIgnoreCase("Female")){
+            checkFemale.setSelected(rootPaneCheckingEnabled);
+        }
+        
+        
+//        txtDate.setDate(date.);
+        
+        
+    }//GEN-LAST:event_tblEmployeeMouseClicked
+
+    private void btnUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUpdateMouseClicked
+        // TODO add your handling code here:
+        
+        sql="update employee set name=?, designation=?, salary=? where id=?";
+        
+        try {
+            ps=con.getCon().prepareStatement(sql);
+            
+           
+            ps.setString(1, txtName.getText().trim());
+            ps.setString(2, txtDesignation.getText().trim());
+            ps.setFloat(3, Float.parseFloat(txtSalary.getText().trim()));
+            ps.setInt(4, Integer.parseInt(txtID.getText().trim()));
+             
+            ps.executeUpdate();
+            ps.close();
+            con.getCon().close();
+            JOptionPane.showMessageDialog(rootPane, "Data Updated");
+            
+            getDataFromTable();
+            
+                    
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Not update"+ex);
+            Logger.getLogger(DashBoard.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnUpdateMouseClicked
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -265,17 +561,29 @@ public class DashBoard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnReset;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnUpdate;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JCheckBox checkDesigning;
+    private javax.swing.JRadioButton checkFemale;
+    private javax.swing.JRadioButton checkMale;
+    private javax.swing.JCheckBox checkProgramming;
+    private javax.swing.JComboBox<String> comboSubject;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblEmployee;
+    private com.toedter.calendar.JDateChooser txtDate;
     private javax.swing.JTextField txtDesignation;
     private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtName;
