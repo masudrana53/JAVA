@@ -8,7 +8,12 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -56,7 +61,7 @@ public class DashBoard extends javax.swing.JFrame {
         
         try {
             return dateFormat.parse(dateString);
-        } catch (Exception e) {
+        } catch (ParseException e) {
             System.err.print("paring failed"+e);
             return null;
         }
@@ -478,6 +483,7 @@ public class DashBoard extends javax.swing.JFrame {
         txtSalary.setText(salary);
         txtDate.setDate( convertStringToDate(date));
         
+        
         if(gender.equalsIgnoreCase("Male")){
             checkMale.setSelected(rootPaneCheckingEnabled);
         }
@@ -485,6 +491,21 @@ public class DashBoard extends javax.swing.JFrame {
             checkFemale.setSelected(rootPaneCheckingEnabled);
         }
         
+        
+//        List<String> hobby1=new ArrayList<>();
+//        
+//        if(checkProgramming.isSelected()){
+//            hobby1.add("Programming");
+//        }
+//        if(checkDesigning.isSelected()){
+//            hobby1.add("Designing");
+//        }
+//        
+        
+        comboSubject.setSelectedItem(subject);
+         
+        
+
         
 //        txtDate.setDate(date.);
         
