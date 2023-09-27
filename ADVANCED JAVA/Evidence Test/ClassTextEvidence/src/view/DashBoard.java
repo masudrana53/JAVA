@@ -11,142 +11,123 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
-
-
 /**
  *
  * @author user
  */
 public class DashBoard extends javax.swing.JFrame {
-    
-    DbCon con=new DbCon();
+
+    DbCon con = new DbCon();
     PreparedStatement ps;
-    String sql="";
+    String sql = "";
     ResultSet rs;
-  
+
     /**
      * Creates new form DbCon
      */
     public DashBoard() {
         initComponents();
-        
+
         getDataFromTable();
-        
+
     }
-    
-    
-    
+
     //Date format method
     //conver to util date to sql date
-    public static Date convertDateToUtil(java.util.Date utilDate){
-        if(utilDate != null){
+    public static Date convertDateToUtil(java.util.Date utilDate) {
+        if (utilDate != null) {
             return new Date(utilDate.getTime());
         }
         return null;
     }
-    
-    
+
     // Date method String to Utill
-    public static java.util.Date convertStringToDate(String dateString){
-        SimpleDateFormat dateFormat=new SimpleDateFormat("YYYY-MM-DD");
-        
+    public java.util.Date convertStringToDate(String dateString) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
         try {
             return dateFormat.parse(dateString);
         } catch (ParseException e) {
-            System.err.print("paring failed"+e);
+            System.err.print("paring failed" + e);
             return null;
         }
-        
+
     }
-    
-    
-    
-    
+
     //Method for gender
-    public String getGender(){
-        String gender="";
-        
-        if(checkMale.isSelected()){
-            gender="Male";
+    public String getGender() {
+        String gender = "";
+
+        if (checkMale.isSelected()) {
+            gender = "Male";
+        } else if (checkFemale.isSelected()) {
+            gender = "Female";
+        } else {
+            gender = "Not Selected";
         }
-        else if(checkFemale.isSelected()){
-            gender="Female";
-        }
-        else{gender="Not Selected";
-        }
-        
+
         return gender;
     }
-    
-    
+
     //Method for hobby
-    public String getHobby(){
-        String hobby="";
-        
-        if(checkProgramming.isSelected()){
-            hobby=hobby+"Programming";
+    public List<String> getHobby() {
+        List<String> hobbyList = new ArrayList<>();
+
+        if (checkProgramming.isSelected()) {
+            hobbyList.add("Programming");
         }
-        
-        if(checkDesigning.isSelected()){
-            hobby=hobby+"Designing";
+
+        if (checkDesigning.isSelected()) {
+            hobbyList.add("Designing");
         }
-       
-       
-        
-        return hobby;
+
+        return hobbyList;
     }
-    
-    
+
     //Insert data from mysql table
-    String[] tableColumns={"ID", "NAME", "DESIGNATION", "SALARY", "Date", "Gender", "Hobby", "Subject"};
-    
-    public void getDataFromTable(){
-        DefaultTableModel model=new DefaultTableModel();
+    String[] tableColumns = {"ID", "NAME", "DESIGNATION", "SALARY", "Date", "Gender", "Hobby", "Subject"};
+
+    public void getDataFromTable() {
+        DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(tableColumns);
-        
+
         tblEmployee.setModel(model);
-        
-        sql="select * from employee";
-        
+
+        sql = "select * from employee";
+
         try {
-            ps=con.getCon().prepareStatement(sql);
-            
-            rs=ps.executeQuery();
-            
-            while(rs.next()){
-                int id=rs.getInt("id");
-                String name=rs.getString("name");
-                String designation=rs.getString("designation");
-                float salary=rs.getFloat("salary");
-                Date date=rs.getDate("date");
-                String gender=rs.getString("gender");
-                String hobby=rs.getString("hobby");
-                String subject=rs.getString("subject");
-                
-                
-                
-                model.addRow(new Object[]{id,name,designation,salary,date,gender,hobby,subject});               
+            ps = con.getCon().prepareStatement(sql);
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String designation = rs.getString("designation");
+                float salary = rs.getFloat("salary");
+                Date date = rs.getDate("date");
+                String gender = rs.getString("gender");
+                String hobby = rs.getString("hobby");
+                String subject = rs.getString("subject");
+
+                model.addRow(new Object[]{id, name, designation, salary, date, gender, hobby, subject});
             }
             ps.close();
             con.getCon().close();
 //            JOptionPane.showMessageDialog(rootPane, "Data Saved");
-            
-            
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(DashBoard.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+
     }
 
     /**
@@ -431,111 +412,111 @@ public class DashBoard extends javax.swing.JFrame {
 
     private void btnSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSaveMouseClicked
         // TODO add your handling code here:
-        sql= "INSERT INTO employee(name, designation, salary, date, gender, hobby, subject)value(?,?,?,?,?,?,?)";
-        
+        sql = "INSERT INTO employee(name, designation, salary, date, gender, hobby, subject)value(?,?,?,?,?,?,?)";
+
         try {
-            ps=con.getCon().prepareStatement(sql);
+            ps = con.getCon().prepareStatement(sql);
             ps.setString(1, txtName.getText().trim());
             ps.setString(2, txtDesignation.getText().trim());
             ps.setFloat(3, Float.parseFloat(txtSalary.getText().trim()));
             ps.setDate(4, convertDateToUtil(txtDate.getDate()));
             ps.setString(5, getGender());
-            ps.setString(6, getHobby());
+            ps.setString(6, getHobby().toString());
             ps.setString(7, comboSubject.getSelectedItem().toString());
-            
-           
-            
+
             ps.executeUpdate();
             ps.close();
-            
+
             JOptionPane.showMessageDialog(rootPane, "Data Saved");
-            
+
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane, "Data not saved"+ex);
+            JOptionPane.showMessageDialog(rootPane, "Data not saved" + ex);
             Logger.getLogger(DashBoard.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         getDataFromTable();
-        
-       
-        
-        
+
+
     }//GEN-LAST:event_btnSaveMouseClicked
 
     private void tblEmployeeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEmployeeMouseClicked
         // TODO add your handling code here:
-        
-        int row=tblEmployee.getSelectedRow();
-        
-        String id=tblEmployee.getModel().getValueAt(row, 0).toString();
-        String name=tblEmployee.getModel().getValueAt(row, 1).toString();
-        String designation=tblEmployee.getModel().getValueAt(row, 2).toString();
-        String salary=tblEmployee.getModel().getValueAt(row, 3).toString();
-        String date=tblEmployee.getModel().getValueAt(row, 4).toString();
-        String gender=tblEmployee.getModel().getValueAt(row, 5).toString();
-        String hobby=tblEmployee.getModel().getValueAt(row, 6).toString();
-        String subject=tblEmployee.getModel().getValueAt(row, 7).toString();
-        
-        
+
+        int row = tblEmployee.getSelectedRow();
+
+        String id = tblEmployee.getModel().getValueAt(row, 0).toString();
+        String name = tblEmployee.getModel().getValueAt(row, 1).toString();
+        String designation = tblEmployee.getModel().getValueAt(row, 2).toString();
+        String salary = tblEmployee.getModel().getValueAt(row, 3).toString();
+        String date = tblEmployee.getModel().getValueAt(row, 4).toString();
+        String gender = tblEmployee.getModel().getValueAt(row, 5).toString();
+        String hobby = tblEmployee.getModel().getValueAt(row, 6).toString();
+        String subject = tblEmployee.getModel().getValueAt(row, 7).toString();
+
+        System.out.println(date);
+
         txtID.setText(id);
         txtName.setText(name);
         txtDesignation.setText(designation);
         txtSalary.setText(salary);
-        txtDate.setDate( convertStringToDate(date));
-        
-        
-        if(gender.equalsIgnoreCase("Male")){
+        txtDate.setDate(convertStringToDate(date));
+
+        if (gender.equalsIgnoreCase("Male")) {
             checkMale.setSelected(rootPaneCheckingEnabled);
-        }
-        else if(gender.equalsIgnoreCase("Female")){
+        } else if (gender.equalsIgnoreCase("Female")) {
             checkFemale.setSelected(rootPaneCheckingEnabled);
         }
-        
-        
-//        List<String> hobby1=new ArrayList<>();
-//        
-//        if(checkProgramming.isSelected()){
-//            hobby1.add("Programming");
-//        }
-//        if(checkDesigning.isSelected()){
-//            hobby1.add("Designing");
-//        }
-//        
-        
-        comboSubject.setSelectedItem(subject);
-         
-        
 
         
+      //For hobby  
+//        String[] arrayHobby = hobby.split(",");
+//        
+//        for (String val : arrayHobby) {
+//            
+//            if ("Programming".equals(val.trim())) {
+//                System.out.println("+++++++");
+//                checkProgramming.setSelected(true);
+//            }
+//            if ("Designing".equals(val.trim())) {
+//                checkDesigning.setSelected(true);
+//            }
+//            
+//        }
+        
+        comboSubject.setSelectedItem(subject);
+
 //        txtDate.setDate(date.);
-        
-        
+
     }//GEN-LAST:event_tblEmployeeMouseClicked
 
     private void btnUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUpdateMouseClicked
         // TODO add your handling code here:
-        
-        sql="update employee set name=?, designation=?, salary=? where id=?";
-        
+
+        sql = "update employee set name=?, designation=?, salary=?, date=?, gender=?, subject=? where id=?";
+
         try {
-            ps=con.getCon().prepareStatement(sql);
-            
-           
+            ps = con.getCon().prepareStatement(sql);
+
             ps.setString(1, txtName.getText().trim());
             ps.setString(2, txtDesignation.getText().trim());
             ps.setFloat(3, Float.parseFloat(txtSalary.getText().trim()));
-            ps.setInt(4, Integer.parseInt(txtID.getText().trim()));
-             
+            ps.setDate(4, convertDateToUtil(txtDate.getDate()));
+            ps.setString(5, getGender());
+            ps.setString(6, comboSubject.getSelectedItem().toString());
+            ps.setInt(7, Integer.parseInt(txtID.getText().trim()));
+            
+            
+//            ps.setInt(4, Integer.parseInt(txtID.getText().trim()));
+
             ps.executeUpdate();
             ps.close();
             con.getCon().close();
             JOptionPane.showMessageDialog(rootPane, "Data Updated");
-            
+
             getDataFromTable();
-            
-                    
+
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane, "Not update"+ex);
+            JOptionPane.showMessageDialog(rootPane, "Not update" + ex);
             Logger.getLogger(DashBoard.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnUpdateMouseClicked
