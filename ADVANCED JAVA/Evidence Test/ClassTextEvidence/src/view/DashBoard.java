@@ -61,6 +61,18 @@ public class DashBoard extends javax.swing.JFrame {
         }
 
     }
+    
+    public void reset(){
+        txtName.setText(null);
+        txtDesignation.setText(null);
+        txtSalary.setText(null);
+        txtDate.setDate(null);
+        buttonGroup1.clearSelection();
+        checkProgramming.setSelected(false);
+        checkDesigning.setSelected(false);
+        comboSubject.setSelectedIndex(0);
+        
+    }
 
     //Method for gender
     public String getGender() {
@@ -408,6 +420,7 @@ public class DashBoard extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSaveMouseClicked
@@ -450,10 +463,23 @@ public class DashBoard extends javax.swing.JFrame {
         String salary = tblEmployee.getModel().getValueAt(row, 3).toString();
         String date = tblEmployee.getModel().getValueAt(row, 4).toString();
         String gender = tblEmployee.getModel().getValueAt(row, 5).toString();
-        String hobby = tblEmployee.getModel().getValueAt(row, 6).toString();
+       
+      //For hobby selected  
+      checkProgramming.setSelected(false);
+      checkDesigning.setSelected(false);
+      
+      String hobby = tblEmployee.getModel().getValueAt(row, 6).toString();
+      
+      if(hobby.contains("Programming")){
+          checkProgramming.setSelected(true);
+      }
+      if(hobby.contains("Designing")){
+          checkDesigning.setSelected(true);
+      }
+//       
         String subject = tblEmployee.getModel().getValueAt(row, 7).toString();
 
-        System.out.println(date);
+//        System.out.println(date);
 
         txtID.setText(id);
         txtName.setText(name);
@@ -466,22 +492,9 @@ public class DashBoard extends javax.swing.JFrame {
         } else if (gender.equalsIgnoreCase("Female")) {
             checkFemale.setSelected(rootPaneCheckingEnabled);
         }
-
         
-      //For hobby  
-//        String[] arrayHobby = hobby.split(",");
-//        
-//        for (String val : arrayHobby) {
-//            
-//            if ("Programming".equals(val.trim())) {
-//                System.out.println("+++++++");
-//                checkProgramming.setSelected(true);
-//            }
-//            if ("Designing".equals(val.trim())) {
-//                checkDesigning.setSelected(true);
-//            }
-//            
-//        }
+   
+  
         
         comboSubject.setSelectedItem(subject);
 
@@ -492,7 +505,7 @@ public class DashBoard extends javax.swing.JFrame {
     private void btnUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUpdateMouseClicked
         // TODO add your handling code here:
 
-        sql = "update employee set name=?, designation=?, salary=?, date=?, gender=?, subject=? where id=?";
+        sql = "update employee set name=?, designation=?, salary=?, date=?, gender=?, hobby=?, subject=? where id=?";
 
         try {
             ps = con.getCon().prepareStatement(sql);
@@ -502,12 +515,11 @@ public class DashBoard extends javax.swing.JFrame {
             ps.setFloat(3, Float.parseFloat(txtSalary.getText().trim()));
             ps.setDate(4, convertDateToUtil(txtDate.getDate()));
             ps.setString(5, getGender());
-            ps.setString(6, comboSubject.getSelectedItem().toString());
-            ps.setInt(7, Integer.parseInt(txtID.getText().trim()));
+            ps.setString(6, getHobby().toString());
+            ps.setString(7, comboSubject.getSelectedItem().toString());
+            ps.setInt(8, Integer.parseInt(txtID.getText().trim()));
             
             
-//            ps.setInt(4, Integer.parseInt(txtID.getText().trim()));
-
             ps.executeUpdate();
             ps.close();
             con.getCon().close();
@@ -523,6 +535,27 @@ public class DashBoard extends javax.swing.JFrame {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
+        
+        sql="delete from employee where id=?";
+        
+        try {
+            ps=con.getCon().prepareStatement(sql);
+            ps.setInt(1, Integer.parseInt(txtID.getText().trim()));
+            
+            ps.executeUpdate();
+            ps.close();
+            con.getCon().close();
+            
+            JOptionPane.showMessageDialog(rootPane, "Data Deleted");
+            reset();
+            
+            getDataFromTable();
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Data not saved");
+            
+            Logger.getLogger(DashBoard.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
