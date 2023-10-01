@@ -364,6 +364,11 @@ public class DashBoard extends javax.swing.JFrame {
         });
 
         btnDelete.setText("Delete");
+        btnDelete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDeleteMouseClicked(evt);
+            }
+        });
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteActionPerformed(evt);
@@ -378,6 +383,11 @@ public class DashBoard extends javax.swing.JFrame {
         });
 
         btnReset.setText("Reset");
+        btnReset.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnResetMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -552,11 +562,29 @@ public class DashBoard extends javax.swing.JFrame {
             getDataFromTable();
             
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane, "Data not saved");
+            JOptionPane.showMessageDialog(rootPane, "Data not Delete");
             
             Logger.getLogger(DashBoard.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnResetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetMouseClicked
+        // TODO add your handling code here:
+        
+        txtName.setText(null);
+        txtDesignation.setText(null);
+        txtSalary.setText(null);
+        txtDate.setDate(null);
+        buttonGroup1.clearSelection();
+        checkProgramming.setSelected(false);
+        checkDesigning.setSelected(false);
+        comboSubject.setSelectedIndex(0);
+        
+    }//GEN-LAST:event_btnResetMouseClicked
+
+    private void btnDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDeleteMouseClicked
 
     /**
      * @param args the command line arguments

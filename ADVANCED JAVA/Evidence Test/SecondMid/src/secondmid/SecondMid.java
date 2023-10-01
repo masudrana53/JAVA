@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
-package classtextevidence;
+package secondmid;
 
 import view.DashBoard;
 
@@ -10,7 +10,7 @@ import view.DashBoard;
  *
  * @author user
  */
-public class ClassTextEvidence {
+public class SecondMid {
 
     /**
      * @param args the command line arguments
@@ -18,6 +18,7 @@ public class ClassTextEvidence {
     public static void main(String[] args) {
         // TODO code application logic here
         DashBoard db=new DashBoard();
+        
         db.setVisible(true);
         db.setLocationRelativeTo(null);
     }
