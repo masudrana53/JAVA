@@ -346,6 +346,7 @@ public class DashBoard extends javax.swing.JFrame {
             getAllData();
             
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Data not save" +ex);
             Logger.getLogger(DashBoard.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnDeleteMouseClicked

@@ -4,12 +4,14 @@
  */
 package view;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import util.DbCon;
 
 /**
@@ -17,10 +19,10 @@ import util.DbCon;
  * @author user
  */
 public class DeshBoard2 extends javax.swing.JFrame {
-    
-    DbCon con=new DbCon();
+
+    DbCon con = new DbCon();
     PreparedStatement ps;
-    String sql="";
+    String sql = "";
     ResultSet rs;
 
     /**
@@ -28,6 +30,65 @@ public class DeshBoard2 extends javax.swing.JFrame {
      */
     public DeshBoard2() {
         initComponents();
+
+        getAllPassengerData();
+        getAllFlightsData();
+
+        getPassenger();
+        getPassengerData();
+    }
+
+    //conver to util date to sql date
+    public static Date convertDateToSql(java.util.Date utilDate) {
+        if (utilDate != null) {
+            return new Date(utilDate.getTime());
+        }
+        return null;
+    }
+
+    //Get data from mysql table
+    String[] tableColumns = {"p_id", "p_name", "p_nationality", "p_gender", "p_passport", "p_address", "p_phone"};
+
+    public void getAllPassengerData() {
+        DefaultTableModel model = new DefaultTableModel();
+        model.setColumnIdentifiers(tableColumns);
+
+        tblPassengers.setModel(model);
+
+        sql = "select * from passengers_table";
+
+        try {
+            ps = con.getCon().prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("p_id");
+                String name = rs.getString("p_name");
+                String nationality = rs.getString("p_nationality");
+                String gender = rs.getString("p_gender");
+                String passport = rs.getString("p_passport");
+                String address = rs.getString("p_address");
+                String phone = rs.getString("p_phone");
+
+                model.addRow(new Object[]{id, name, nationality, gender, passport, address, phone});
+            }
+            ps.close();
+            con.getCon().close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DeshBoard2.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    public void reset() {
+        pName.setText(null);
+        pNatinality.setSelectedItem(null);
+        pGender.setSelectedItem(null);
+        pPassport.setText(null);
+        pAddress.setText(null);
+        pPhone.setText(null);
+
     }
 
     /**
@@ -59,22 +120,22 @@ public class DeshBoard2 extends javax.swing.JFrame {
         jLabel29 = new javax.swing.JLabel();
         flights = new javax.swing.JTabbedPane();
         jPanel5 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        btnfDelete = new javax.swing.JButton();
+        flDate = new com.toedter.calendar.JDateChooser();
         jLabel23 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
-        jComboBox8 = new javax.swing.JComboBox<>();
-        jComboBox9 = new javax.swing.JComboBox<>();
+        flSource = new javax.swing.JComboBox<>();
+        flDestination = new javax.swing.JComboBox<>();
         jLabel28 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
-        jTextField11 = new javax.swing.JTextField();
+        flCode = new javax.swing.JTextField();
         jLabel33 = new javax.swing.JLabel();
-        jTextField15 = new javax.swing.JTextField();
-        jButton16 = new javax.swing.JButton();
-        jButton17 = new javax.swing.JButton();
-        jButton18 = new javax.swing.JButton();
+        flSeats = new javax.swing.JTextField();
+        btnfSave = new javax.swing.JButton();
+        btnfUpdate = new javax.swing.JButton();
+        btnfReset = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTable5 = new javax.swing.JTable();
+        tblFlights = new javax.swing.JTable();
         jPanel6 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -103,26 +164,26 @@ public class DeshBoard2 extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         tickets = new javax.swing.JTabbedPane();
         jPanel13 = new javax.swing.JPanel();
-        jButton22 = new javax.swing.JButton();
-        jButton23 = new javax.swing.JButton();
-        jButton24 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnSaveTickt = new javax.swing.JButton();
+        btnUpdateTickt = new javax.swing.JButton();
+        btnResetTickt = new javax.swing.JButton();
+        btnDeleteTickt = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
-        jComboBox5 = new javax.swing.JComboBox<>();
-        jTextField8 = new javax.swing.JTextField();
+        PassIdTickt = new javax.swing.JComboBox<>();
+        nameTickt = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        jComboBox6 = new javax.swing.JComboBox<>();
-        jTextField13 = new javax.swing.JTextField();
+        flightCodeTickt = new javax.swing.JComboBox<>();
+        genderTicket = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
+        passportTickt = new javax.swing.JTextField();
         jLabel30 = new javax.swing.JLabel();
-        jTextField14 = new javax.swing.JTextField();
-        jTextField9 = new javax.swing.JTextField();
+        amountTickt = new javax.swing.JTextField();
+        nationalityTickt = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        tblTickets = new javax.swing.JTable();
         jPanel14 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -144,7 +205,6 @@ public class DeshBoard2 extends javax.swing.JFrame {
         jLabel24 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -237,9 +297,9 @@ public class DeshBoard2 extends javax.swing.JFrame {
                 .addComponent(btnPassengers, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45)
                 .addComponent(btnTickets, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
+                .addGap(43, 43, 43)
                 .addComponent(btnCancellation, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 150, 530));
@@ -251,17 +311,17 @@ public class DeshBoard2 extends javax.swing.JFrame {
         jLabel36.setFont(new java.awt.Font("Unica One", 1, 60)); // NOI18N
         jLabel36.setForeground(new java.awt.Color(255, 255, 255));
         jLabel36.setText("DELTA AIR");
-        jPanel21.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 260, 340, 110));
+        jPanel21.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 260, 330, 110));
 
         jLabel34.setFont(new java.awt.Font("Unica One", 1, 60)); // NOI18N
         jLabel34.setForeground(new java.awt.Color(255, 255, 255));
         jLabel34.setText("TO");
-        jPanel21.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 170, 120, 110));
+        jPanel21.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 170, 100, 110));
 
         jLabel7.setFont(new java.awt.Font("Unica One", 1, 60)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Welcome");
-        jPanel21.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 80, 300, 110));
+        jPanel21.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 80, 270, 110));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/logo22.png"))); // NOI18N
         jPanel21.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 410, 210, 100));
@@ -275,11 +335,11 @@ public class DeshBoard2 extends javax.swing.JFrame {
 
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setBackground(new java.awt.Color(255, 102, 51));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton1.setText("Delete");
-        jPanel5.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 220, -1, -1));
-        jPanel5.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 130, 120, -1));
+        btnfDelete.setBackground(new java.awt.Color(255, 102, 51));
+        btnfDelete.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnfDelete.setText("Delete");
+        jPanel5.add(btnfDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 220, -1, -1));
+        jPanel5.add(flDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 130, 120, -1));
 
         jLabel23.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel23.setText("Flight Code");
@@ -289,11 +349,11 @@ public class DeshBoard2 extends javax.swing.JFrame {
         jLabel27.setText("Source");
         jPanel5.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 100, 90, -1));
 
-        jComboBox8.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dhaka", "Khulna", "Syhlet", "Rajshahi", "Barishal", "Cumilla" }));
-        jPanel5.add(jComboBox8, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 130, 120, -1));
+        flSource.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dhaka", "Khulna", "Syhlet", "Rajshahi", "Barishal", "Cumilla" }));
+        jPanel5.add(flSource, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 130, 120, -1));
 
-        jComboBox9.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dhaka", "Khulna", "Syhlet", "Rajshahi", "Barishal", "Cumilla" }));
-        jPanel5.add(jComboBox9, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 130, 120, -1));
+        flDestination.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dhaka", "Khulna", "Syhlet", "Rajshahi", "Barishal", "Cumilla" }));
+        jPanel5.add(flDestination, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 130, 120, -1));
 
         jLabel28.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel28.setText("Destination");
@@ -302,29 +362,34 @@ public class DeshBoard2 extends javax.swing.JFrame {
         jLabel32.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel32.setText("Take of Time");
         jPanel5.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 100, 120, -1));
-        jPanel5.add(jTextField11, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 130, -1));
+        jPanel5.add(flCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 130, -1));
 
         jLabel33.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel33.setText("Number of Seats");
         jPanel5.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 100, 130, -1));
-        jPanel5.add(jTextField15, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 130, 130, -1));
+        jPanel5.add(flSeats, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 130, 130, -1));
 
-        jButton16.setBackground(new java.awt.Color(51, 204, 255));
-        jButton16.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton16.setText("Save");
-        jPanel5.add(jButton16, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 220, 70, -1));
+        btnfSave.setBackground(new java.awt.Color(51, 204, 255));
+        btnfSave.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnfSave.setText("Save");
+        btnfSave.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnfSaveMouseClicked(evt);
+            }
+        });
+        jPanel5.add(btnfSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 220, 70, -1));
 
-        jButton17.setBackground(new java.awt.Color(255, 204, 51));
-        jButton17.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton17.setText("Update");
-        jPanel5.add(jButton17, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 220, -1, -1));
+        btnfUpdate.setBackground(new java.awt.Color(255, 204, 51));
+        btnfUpdate.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnfUpdate.setText("Update");
+        jPanel5.add(btnfUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 220, -1, -1));
 
-        jButton18.setBackground(new java.awt.Color(0, 204, 255));
-        jButton18.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton18.setText("Reset");
-        jPanel5.add(jButton18, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 220, 70, -1));
+        btnfReset.setBackground(new java.awt.Color(0, 204, 255));
+        btnfReset.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnfReset.setText("Reset");
+        jPanel5.add(btnfReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 220, 70, -1));
 
-        jTable5.setModel(new javax.swing.table.DefaultTableModel(
+        tblFlights.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -335,7 +400,7 @@ public class DeshBoard2 extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane5.setViewportView(jTable5);
+        jScrollPane5.setViewportView(tblFlights);
 
         jPanel5.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 320, 760, 170));
 
@@ -380,16 +445,31 @@ public class DeshBoard2 extends javax.swing.JFrame {
         btnUpdate.setBackground(new java.awt.Color(255, 204, 51));
         btnUpdate.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnUpdate.setText("Update");
+        btnUpdate.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnUpdateMouseClicked(evt);
+            }
+        });
         jPanel9.add(btnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 220, -1, -1));
 
         btnReset.setBackground(new java.awt.Color(0, 204, 255));
         btnReset.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnReset.setText("Reset");
+        btnReset.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnResetMouseClicked(evt);
+            }
+        });
         jPanel9.add(btnReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 220, 70, -1));
 
         btnDelete.setBackground(new java.awt.Color(255, 102, 51));
         btnDelete.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnDelete.setText("Delete");
+        btnDelete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDeleteMouseClicked(evt);
+            }
+        });
         jPanel9.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 220, -1, -1));
         jPanel9.add(pPassport, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 130, 120, -1));
 
@@ -437,6 +517,11 @@ public class DeshBoard2 extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblPassengers.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblPassengersMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblPassengers);
 
         jPanel9.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, 790, 190));
@@ -470,33 +555,45 @@ public class DeshBoard2 extends javax.swing.JFrame {
 
         jPanel13.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton22.setBackground(new java.awt.Color(51, 204, 255));
-        jButton22.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton22.setText("Save");
-        jPanel13.add(jButton22, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 220, 70, -1));
+        btnSaveTickt.setBackground(new java.awt.Color(51, 204, 255));
+        btnSaveTickt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnSaveTickt.setText("Save");
+        btnSaveTickt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSaveTicktMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSaveTicktMouseEntered(evt);
+            }
+        });
+        jPanel13.add(btnSaveTickt, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 220, 70, -1));
 
-        jButton23.setBackground(new java.awt.Color(255, 204, 51));
-        jButton23.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton23.setText("Update");
-        jPanel13.add(jButton23, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 220, -1, -1));
+        btnUpdateTickt.setBackground(new java.awt.Color(255, 204, 51));
+        btnUpdateTickt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnUpdateTickt.setText("Update");
+        jPanel13.add(btnUpdateTickt, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 220, -1, -1));
 
-        jButton24.setBackground(new java.awt.Color(0, 204, 255));
-        jButton24.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton24.setText("Reset");
-        jPanel13.add(jButton24, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 220, 70, -1));
+        btnResetTickt.setBackground(new java.awt.Color(0, 204, 255));
+        btnResetTickt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnResetTickt.setText("Reset");
+        jPanel13.add(btnResetTickt, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 220, 70, -1));
 
-        jButton3.setBackground(new java.awt.Color(255, 102, 51));
-        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton3.setText("Delete");
-        jPanel13.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 220, -1, -1));
+        btnDeleteTickt.setBackground(new java.awt.Color(255, 102, 51));
+        btnDeleteTickt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnDeleteTickt.setText("Delete");
+        jPanel13.add(btnDeleteTickt, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 220, -1, -1));
 
         jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel16.setText("Passenger ID");
         jPanel13.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 110, -1));
 
-        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel13.add(jComboBox5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 90, -1));
-        jPanel13.add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, 100, -1));
+        PassIdTickt.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                PassIdTicktItemStateChanged(evt);
+            }
+        });
+        jPanel13.add(PassIdTickt, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 90, -1));
+        jPanel13.add(nameTickt, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, 100, -1));
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel17.setText("Name");
@@ -506,9 +603,9 @@ public class DeshBoard2 extends javax.swing.JFrame {
         jLabel18.setText("Flight Code");
         jPanel13.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 110, 100, -1));
 
-        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel13.add(jComboBox6, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 140, 90, -1));
-        jPanel13.add(jTextField13, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 140, 90, -1));
+        flightCodeTickt.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel13.add(flightCodeTickt, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 140, 90, -1));
+        jPanel13.add(genderTicket, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 140, 90, -1));
 
         jLabel20.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel20.setText("Gender");
@@ -517,19 +614,19 @@ public class DeshBoard2 extends javax.swing.JFrame {
         jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel19.setText("Passport No:");
         jPanel13.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 110, -1, -1));
-        jPanel13.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 140, 100, -1));
+        jPanel13.add(passportTickt, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 140, 100, -1));
 
         jLabel30.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel30.setText("Amount");
         jPanel13.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 110, -1, -1));
-        jPanel13.add(jTextField14, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 140, 100, -1));
-        jPanel13.add(jTextField9, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 140, 100, -1));
+        jPanel13.add(amountTickt, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 140, 100, -1));
+        jPanel13.add(nationalityTickt, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 140, 100, -1));
 
         jLabel21.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel21.setText("Nationality");
         jPanel13.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 110, -1, -1));
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        tblTickets.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -540,7 +637,7 @@ public class DeshBoard2 extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane3.setViewportView(jTable3);
+        jScrollPane3.setViewportView(tblTickets);
 
         jPanel13.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, 760, 170));
 
@@ -680,11 +777,14 @@ public class DeshBoard2 extends javax.swing.JFrame {
     private void btnPassengersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPassengersMouseClicked
         // TODO add your handling code here:
         maintab.setSelectedIndex(2);
+
     }//GEN-LAST:event_btnPassengersMouseClicked
 
     private void btnTicketsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTicketsMouseClicked
         // TODO add your handling code here:
         maintab.setSelectedIndex(3);
+//        getPassenger();
+//        
     }//GEN-LAST:event_btnTicketsMouseClicked
 
     private void btnCancellationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancellationMouseClicked
@@ -694,29 +794,248 @@ public class DeshBoard2 extends javax.swing.JFrame {
 
     private void btnSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSaveMouseClicked
         // TODO add your handling code here:
-        
-        sql ="INSERT INTO passengers_table(p_name, p_nationality, p_gender, p_passport, p_address, p_phone)value(?,?,?,?,?,?)";
-        
+
+        sql = "INSERT INTO passengers_table(p_name, p_nationality, p_gender, p_passport, p_address, p_phone)value(?,?,?,?,?,?)";
+
         try {
-            ps=con.getCon().prepareStatement(sql);
+            ps = con.getCon().prepareStatement(sql);
             ps.setString(1, pName.getText().trim());
             ps.setString(2, pNatinality.getSelectedItem().toString());
             ps.setString(3, pGender.getSelectedItem().toString());
             ps.setString(4, pPassport.getText().trim());
             ps.setString(5, pAddress.getText().trim());
             ps.setString(6, pPhone.getText().trim());
-            
+
             ps.executeUpdate();
             ps.close();
             con.getCon().close();
-            
+
             JOptionPane.showMessageDialog(rootPane, "Data saved");
-            
+
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane, "Data not saved"+ex);
+            JOptionPane.showMessageDialog(rootPane, "Data not saved" + ex);
             Logger.getLogger(DeshBoard2.class.getName()).log(Level.SEVERE, null, ex);
         }
+//        getAllPassengerData();
+        
+        getPassenger();
+        
+       
     }//GEN-LAST:event_btnSaveMouseClicked
+
+    private void btnUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUpdateMouseClicked
+        // TODO add your handling code here:
+//   tableColumns ={"p_id", "p_name", "p_nationality", "p_gender", "p_passport", "p_address", "p_phone"};  
+
+        String Idnumber = id;
+
+        sql = "update passengers_table set p_name=?, p_nationality=?, p_gender=?, p_passport=?, p_address=?, p_phone=? where p_id=?";
+
+        try {
+            ps = con.getCon().prepareStatement(sql);
+            ps.setString(1, pName.getText().trim());
+            ps.setString(2, pNatinality.getSelectedItem().toString());
+            ps.setString(3, pGender.getSelectedItem().toString());
+            ps.setString(4, pPassport.getText().trim());
+            ps.setString(5, pAddress.getText().trim());
+            ps.setString(6, pPhone.getText().trim());
+            ps.setInt(7, Integer.parseInt(Idnumber.trim()));
+
+            ps.executeUpdate();
+            ps.close();
+            con.getCon().close();
+
+            JOptionPane.showMessageDialog(rootPane, "Data Updated");
+            getAllPassengerData();
+
+            id = null;
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Data Not Saved" + ex);
+            Logger.getLogger(DeshBoard2.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnUpdateMouseClicked
+    String id;
+    private void tblPassengersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPassengersMouseClicked
+        // TODO add your handling code here:
+
+        int row = tblPassengers.getSelectedRow();
+
+        id = tblPassengers.getModel().getValueAt(row, 0).toString();
+        String name = tblPassengers.getModel().getValueAt(row, 1).toString();
+        String nationality = tblPassengers.getModel().getValueAt(row, 2).toString();
+        String gender = tblPassengers.getModel().getValueAt(row, 3).toString();
+        String passport = tblPassengers.getModel().getValueAt(row, 4).toString();
+        String address = tblPassengers.getModel().getValueAt(row, 5).toString();
+        String phone = tblPassengers.getModel().getValueAt(row, 6).toString();
+
+        pName.setText(name);
+        pNatinality.setSelectedItem(nationality);
+        pGender.setSelectedItem(gender);
+        pPassport.setText(passport);
+        pAddress.setText(address);
+        pPhone.setText(phone);
+
+    }//GEN-LAST:event_tblPassengersMouseClicked
+
+    private void btnResetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetMouseClicked
+        // TODO add your handling code here:
+        reset();
+    }//GEN-LAST:event_btnResetMouseClicked
+
+    private void btnDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseClicked
+        // TODO add your handling code here:
+        String Idnum = id;
+        sql = "delete from passengers_table where p_id=?";
+
+        try {
+            ps = con.getCon().prepareStatement(sql);
+            ps.setInt(1, Integer.parseInt(Idnum.trim()));
+
+            ps.executeLargeUpdate();
+            ps.close();
+            con.getCon().close();
+
+            JOptionPane.showMessageDialog(rootPane, "Data Deleted");
+            reset();
+
+            getAllPassengerData();
+
+            id = null;
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Data not saved" + ex);
+            Logger.getLogger(DeshBoard2.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnDeleteMouseClicked
+
+    //Strting flights module from here
+    //get data from mysql table
+    String[] flTableColumns = {"fl_code", "fl_source", "fl_destination", "fl_date", "fl_seats"};
+
+    public void getAllFlightsData() {
+        DefaultTableModel model = new DefaultTableModel();
+        model.setColumnIdentifiers(flTableColumns);
+
+        tblFlights.setModel(model);
+
+        sql = "select * from flight_table";
+
+        try {
+            ps = con.getCon().prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String code = rs.getString("fl_code");
+                String source = rs.getString("fl_source");
+                String destination = rs.getString("fl_destination");
+                Date date = rs.getDate("fl_date");
+                int seats = rs.getInt("fl_seats");
+
+                model.addRow(new Object[]{code, source, destination, date, seats});
+            }
+            ps.close();
+            con.getCon().close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DeshBoard2.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    private void btnfSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnfSaveMouseClicked
+        // TODO add your handling code here:
+        sql = "INSERT INTO flight_table(fl_code, fl_source, fl_destination, fl_date, fl_seats)value(?,?,?,?,?)";
+
+        try {
+            ps = con.getCon().prepareStatement(sql);
+            ps.setString(1, flCode.getText().trim());
+            ps.setString(2, flSource.getSelectedItem().toString());
+            ps.setString(3, flDestination.getSelectedItem().toString());
+            ps.setDate(4, convertDateToSql(flDate.getDate()));
+            ps.setInt(5, Integer.parseInt(flSeats.getText().trim()));
+
+            ps.executeUpdate();
+            ps.close();
+            con.getCon().close();
+
+            JOptionPane.showMessageDialog(rootPane, "Data Saved");
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Data Not Saved" + ex);
+            Logger.getLogger(DeshBoard2.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        getAllFlightsData();
+
+    }//GEN-LAST:event_btnfSaveMouseClicked
+
+    ///// Start tickets module from here///////////
+    public void getPassenger() {
+        
+
+        sql = "SELECT * FROM passengers_table";
+        try {
+            ps = con.getCon().prepareStatement(sql);
+            
+            ResultSet rs1 = ps.executeQuery();
+
+            while (rs1.next()) {
+                
+                int p_id = rs1.getInt("p_id");
+                PassIdTickt.addItem(String.valueOf(p_id));
+                System.out.println(p_id);
+
+            }
+            
+            ps.close();
+            con.getCon().close();
+            rs1.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DeshBoard2.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    
+    public void getPassengerData() {
+//        nameTickt.setText(null);
+
+        sql = "select p_name from passengers_table where p_id =?";
+
+        try {
+            ps = con.getCon().prepareStatement(sql);
+            ps.setInt(1, Integer.parseInt(PassIdTickt.getSelectedItem().toString()));
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                nameTickt.setText(rs.getString("p_name"));
+            }
+
+            ps.close();
+            rs.close();
+            con.getCon().close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DeshBoard2.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+
+    private void btnSaveTicktMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSaveTicktMouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_btnSaveTicktMouseClicked
+
+    private void btnSaveTicktMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSaveTicktMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSaveTicktMouseEntered
+
+    private void PassIdTicktItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_PassIdTicktItemStateChanged
+        // TODO add your handling code here:
+
+        getPassengerData();
+    }//GEN-LAST:event_PassIdTicktItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -754,35 +1073,39 @@ public class DeshBoard2 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> PassIdTickt;
+    private javax.swing.JTextField amountTickt;
     private javax.swing.JButton btnCancellation;
     private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnDeleteTickt;
     private javax.swing.JButton btnFlights;
     private javax.swing.JButton btnHome;
     private javax.swing.JButton btnPassengers;
     private javax.swing.JButton btnReset;
+    private javax.swing.JButton btnResetTickt;
     private javax.swing.JButton btnSave;
+    private javax.swing.JButton btnSaveTickt;
     private javax.swing.JButton btnTickets;
     private javax.swing.JButton btnUpdate;
+    private javax.swing.JButton btnUpdateTickt;
+    private javax.swing.JButton btnfDelete;
+    private javax.swing.JButton btnfReset;
+    private javax.swing.JButton btnfSave;
+    private javax.swing.JButton btnfUpdate;
     private javax.swing.JTabbedPane cancellation;
+    private javax.swing.JTextField flCode;
+    private com.toedter.calendar.JDateChooser flDate;
+    private javax.swing.JComboBox<String> flDestination;
+    private javax.swing.JTextField flSeats;
+    private javax.swing.JComboBox<String> flSource;
+    private javax.swing.JComboBox<String> flightCodeTickt;
     private javax.swing.JTabbedPane flights;
+    private javax.swing.JTextField genderTicket;
     private javax.swing.JTabbedPane home;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton15;
-    private javax.swing.JButton jButton16;
-    private javax.swing.JButton jButton17;
-    private javax.swing.JButton jButton18;
-    private javax.swing.JButton jButton22;
-    private javax.swing.JButton jButton23;
-    private javax.swing.JButton jButton24;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox5;
-    private javax.swing.JComboBox<String> jComboBox6;
     private javax.swing.JComboBox<String> jComboBox7;
-    private javax.swing.JComboBox<String> jComboBox8;
-    private javax.swing.JComboBox<String> jComboBox9;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -836,18 +1159,11 @@ public class DeshBoard2 extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
-    private javax.swing.JTable jTable5;
     private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField14;
-    private javax.swing.JTextField jTextField15;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
     private javax.swing.JTabbedPane maintab;
+    private javax.swing.JTextField nameTickt;
+    private javax.swing.JTextField nationalityTickt;
     private javax.swing.JTextField pAddress;
     private javax.swing.JComboBox<String> pGender;
     private javax.swing.JTextField pName;
@@ -855,7 +1171,10 @@ public class DeshBoard2 extends javax.swing.JFrame {
     private javax.swing.JTextField pPassport;
     private javax.swing.JTextField pPhone;
     private javax.swing.JTabbedPane passengers;
+    private javax.swing.JTextField passportTickt;
+    private javax.swing.JTable tblFlights;
     private javax.swing.JTable tblPassengers;
+    private javax.swing.JTable tblTickets;
     private javax.swing.JTabbedPane tickets;
     // End of variables declaration//GEN-END:variables
 }
