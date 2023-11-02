@@ -6,7 +6,7 @@
 int result=StudentDao.saveStudent(s);
 
 if(result>0){
-    response.sendRedirect("success.jsp");
+    response.sendRedirect("showAllStudent.jsp");
     
     }
     else{

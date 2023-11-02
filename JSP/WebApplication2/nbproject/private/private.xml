@@ -2,6 +2,14 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/E:/Github/JAVA/JAVA/JSP/WebApplication2/web/delete.jsp</file>
+            <file>file:/E:/Github/JAVA/JAVA/JSP/WebApplication2/src/java/dao/StudentDao.java</file>
+            <file>file:/E:/Github/JAVA/JAVA/JSP/WebApplication2/src/java/model/Student.java</file>
+            <file>file:/E:/Github/JAVA/JAVA/JSP/WebApplication2/web/edit.jsp</file>
+            <file>file:/E:/Github/JAVA/JAVA/JSP/WebApplication2/web/showAllStudent.jsp</file>
+            <file>file:/E:/Github/JAVA/JAVA/JSP/WebApplication2/web/addStudent.jsp</file>
+            <file>file:/E:/Github/JAVA/JAVA/JSP/WebApplication2/web/editForm.jsp</file>
+        </group>
     </open-files>
 </project-private>

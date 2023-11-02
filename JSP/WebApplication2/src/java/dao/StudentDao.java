@@ -61,16 +61,63 @@ public class StudentDao {
         return studentList; 
     }
     
-    public Student getStudentById(int id){
-        Student s=null;
+    public static Student getStudentById(int id) throws ClassNotFoundException, SQLException{   
+        Student s = new Student();
         
-        String sql="select * from student where id=?";
-        PreparedStatement ps=
-                
-                
-                
-                
-            
+        String sql = "select from student where id=?";
+        PreparedStatement ps = DbCon.getCon().prepareStatement(sql);
+        
+        ps.setInt(1, id);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        while(rs.next()){
+            s.setId(rs.getInt("id"));
+            s.setGivenName(rs.getString("givenName"));
+            s.setLastName(rs.getString("lastName"));
+            s.setSubject(rs.getString("subject"));
+            s.setSubject(rs.getString("gender"));
+        }
+        
+        rs.close();
+        ps.close();
+        DbCon.getCon().close();
+        
+        return s;         
+    }
+    
+    public static int deleteStudent(Student s) throws ClassNotFoundException, SQLException{
+        
+        int status = 0;
+        String sql = "delete from student where id=?";
+        PreparedStatement ps = DbCon.getCon().prepareStatement(sql);
+        ps.setInt(1, s.getId());
+        
+        ps.close();
+        DbCon.getCon().close();
+        
+        return status;
+    }
+    
+    
+    public static int editStudent(Student s) throws ClassNotFoundException, SQLException{
+        
+        int status = 0;
+        String sql = "update student set givenName=?, lastName=?, gender=?, subject=? where id=?";
+        PreparedStatement ps = DbCon.getCon().prepareStatement(sql);
+        
+        ps.setString(1, s.getGivenName());
+        ps.setString(2, s.getLastName());
+        ps.setString(3, s.getGender());
+        ps.setString(4, s.getSubject());
+        ps.setInt(5, s.getId());
+        
+        status = ps.executeUpdate();
+        
+        ps.close();
+        DbCon.getCon().close();
+        
+        return status;
     }
     
 }

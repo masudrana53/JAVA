@@ -10,6 +10,13 @@
     List<Student> list=StudentDao.getAllStudent();
     request.setAttribute("list", list);
     
+    int counter = 1; // Initialize a counter variable
+
+    // Iterate over the list of students
+    for (Student student : list) {
+        student.setSequence(counter++);
+    }
+    
 %>  
 
 <div class="container my-3 py-2">
@@ -32,14 +39,16 @@
         <tbody>
             <c:forEach items="${list}" var="s">
                 <tr>
-                    <td>${s.getId()}</td>
+                    <td>${s.getSequence()}</td>
                     <td>${s.getGivenName()}</td>
                     <td>${s.getLastName()}</td>
                     <td>${s.getSubject()}</td>
                     <td>${s.getGender()}</td>
                     <td>
-                        <button type="submit" class="btn btn-primary">Edit</button>
-                        <button type="submit" class="btn btn-warning">Delete</button>
+                        <a class="btn btn-primary" href="edit.jsp?hasan=${s.getId()}" >Edit</a>
+                        <a class="btn btn-warning" href="delete.jsp?id=${s.getId()}"> Delete</a>
+<!--                        <button type="submit" class="btn btn-primary">Edit</button>
+                        <button type="submit" class="btn btn-warning">Delete</button>-->
                     </td>
                     
                 </tr>               

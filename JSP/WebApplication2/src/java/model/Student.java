@@ -15,6 +15,16 @@ public class Student {
     private String lastName;
     private String gender;
     private String subject;
+    private int sequence;
+
+    public int getSequence() {
+        return sequence;
+    }
+
+    public void setSequence(int sequence) {
+        this.sequence = sequence;
+    }
+    
 
     
     public Student() {
