@@ -1,0 +1,12 @@
+Name= masud
+
+Address= masud
+
+Date= Fri Sep 01 13:32:36 BDT 2023
+
+Subject= JEE
+
+Hobby= [Reading, Travelling, Programming]
+
+Gender= Female
+
