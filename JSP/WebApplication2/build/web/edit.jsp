@@ -5,9 +5,10 @@
 <%
  int result=StudentDao.editStudent(s);
  
-if(result>0{
+if(result>0){
     response.sendRedirect("showAllStudent.jsp");
     }
+    
     else{
     response.sendRedirect("error.jsp");
     }

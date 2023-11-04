@@ -5,6 +5,8 @@
 <% 
 int result=StudentDao.saveStudent(s);
 
+
+
 if(result>0){
     response.sendRedirect("showAllStudent.jsp");
     
@@ -14,6 +16,6 @@ if(result>0){
     response.sendRedirect("error.jsp");
     
     }
-
-
+    System.out.println(result);
+    
 %>

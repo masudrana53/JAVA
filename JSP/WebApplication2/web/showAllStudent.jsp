@@ -45,7 +45,7 @@
                     <td>${s.getSubject()}</td>
                     <td>${s.getGender()}</td>
                     <td>
-                        <a class="btn btn-primary" href="edit.jsp?hasan=${s.getId()}" >Edit</a>
+                        <a class="btn btn-primary" href="editForm.jsp?hasan=${s.getId()}" >Edit</a>
                         <a class="btn btn-warning" href="delete.jsp?id=${s.getId()}"> Delete</a>
 <!--                        <button type="submit" class="btn btn-primary">Edit</button>
                         <button type="submit" class="btn btn-warning">Delete</button>-->

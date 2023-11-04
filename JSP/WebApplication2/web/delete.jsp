@@ -1,20 +1,27 @@
 
-
-<jsp:useBean class="model.Studnet" id="s" />
+<jsp:useBean class="model.Student" id="s" />
 <%@page import="dao.StudentDao" %>
 <jsp:setProperty name="s" property="*"/>
 
 <%
-  int result = StudentDao.deleteStudent(s);
+//  int result = StudentDao.deleteStudent(s);
+//
+//    if(result>0){
+//        response.sendRedirect("showAllStudent.jsp");
+//    }    
+//    else{
+//        response.sendRedirect("error.jsp");
+//    }
+//    
+//    System.out.println(result);
 
-if(result>0){
-    response.sendRedirect("showAllStudent.jsp");
+    int result = StudentDao.deleteStudent(s);
+    
+    if(result>0){
+        response.sendRedirect("showAllStudent.jsp");
     }
+    
     else{
-    response.sendRedirect("error.jsp");
+        response.sendRedirect("error.jsp");
     }
-
-
-
-
-    %>
+%>

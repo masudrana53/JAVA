@@ -47,7 +47,10 @@ public class Student {
 
     public int getId() {
         return id;
+        
     }
+    
+    
 
     public void setId(int id) {
         this.id = id;
@@ -84,6 +87,7 @@ public class Student {
     public void setSubject(String subject) {
         this.subject = subject;
     }
+  
 
     @Override
     public String toString() {

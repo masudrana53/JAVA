@@ -64,7 +64,7 @@ public class StudentDao {
     public static Student getStudentById(int id) throws ClassNotFoundException, SQLException{   
         Student s = new Student();
         
-        String sql = "select from student where id=?";
+        String sql = "select* from student where id=?";
         PreparedStatement ps = DbCon.getCon().prepareStatement(sql);
         
         ps.setInt(1, id);
@@ -76,7 +76,7 @@ public class StudentDao {
             s.setGivenName(rs.getString("givenName"));
             s.setLastName(rs.getString("lastName"));
             s.setSubject(rs.getString("subject"));
-            s.setSubject(rs.getString("gender"));
+            s.setGender(rs.getString("gender"));
         }
         
         rs.close();
@@ -92,6 +92,8 @@ public class StudentDao {
         String sql = "delete from student where id=?";
         PreparedStatement ps = DbCon.getCon().prepareStatement(sql);
         ps.setInt(1, s.getId());
+        
+        status=ps.executeUpdate();
         
         ps.close();
         DbCon.getCon().close();
