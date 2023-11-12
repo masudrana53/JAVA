@@ -66,6 +66,10 @@ public class Student  implements java.io.Serializable {
         this.subject = subject;
     }
 
+    public Object getGivenName() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 
 
 
