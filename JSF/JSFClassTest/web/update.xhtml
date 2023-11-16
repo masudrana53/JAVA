@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+      
+    
+    <h:body>
+        
+        <h:panelGrid>
+            <h:commandButton action="viewall.xhtml" value="View All"></h:commandButton>
+        </h:panelGrid> 
+        
+        <pre>
+         <h:form>
+             <h:inputHidden value="#{manageBean.employee.id}" />
+             
+            <h:outputLabel> Name </h:outputLabel>
+            <h:inputText value="#{manageBean.employee.name}"></h:inputText>
+            <br/>
+            
+   
+             <h:outputLabel> Designation </h:outputLabel>
+             <h:selectOneMenu value="#{manageBean.employee.designation}">
+                 <f:selectItem itemValue="JEE" itemLabel="JEE" />
+                 <f:selectItem itemValue="C#" itemLabel="C#" />
+                 <f:selectItem itemValue="NT" itemLabel="NT" />
+             </h:selectOneMenu>>
+             <br/>
+             
+             <h:commandButton action="#{manageBean.saveEmployee()}" value="Update"></h:commandButton>
+             
+        </h:form>
+        </pre>
+ 
+    </h:body>
+</html>
