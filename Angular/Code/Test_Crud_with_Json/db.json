@@ -1,0 +1,45 @@
+{
+  "student": [
+    {
+      "id": 4,
+      "firstName": "hhhhhhhhhhhh",
+      "lastName": "eeeeeeeeeeeee",
+      "email": "aaaaaaaaa",
+      "cell": "22222222222",
+      "salary": "3333333333"
+    },
+    {
+      "id": 5,
+      "firstName": "asdf",
+      "lastName": "sfdfs",
+      "email": "fdsfdsf",
+      "cell": "963541",
+      "salary": "58241"
+    },
+    {
+      "id": 6,
+      "firstName": "DSFDS",
+      "lastName": "DSFD",
+      "email": "DFD",
+      "cell": "DF",
+      "salary": "3333333333333"
+    },
+    {
+      "id": 7,
+      "firstName": "rrrr",
+      "lastName": "rrrr",
+      "email": "eee",
+      "cell": "8654",
+      "salary": "5321"
+    }
+  ],
+  "comments": [
+    {
+      "cell": "f",
+      "salary": "sdfsdfs"
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
