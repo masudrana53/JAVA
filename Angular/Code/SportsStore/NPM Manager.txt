@@ -10,6 +10,9 @@
 
 6. ng g environments
 
+9. ng g c store/store
+
+
 7. In style: "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
 	"node_modules/bootstrap/dist/css/bootstrap.min.css"
 
