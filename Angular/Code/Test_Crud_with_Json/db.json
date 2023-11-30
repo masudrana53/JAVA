@@ -10,27 +10,11 @@
     },
     {
       "id": 5,
-      "firstName": "asdf",
-      "lastName": "sfdfs",
-      "email": "fdsfdsf",
-      "cell": "963541",
-      "salary": "58241"
-    },
-    {
-      "id": 6,
-      "firstName": "DSFDS",
-      "lastName": "DSFD",
-      "email": "DFD",
-      "cell": "DF",
-      "salary": "3333333333333"
-    },
-    {
-      "id": 7,
-      "firstName": "rrrr",
-      "lastName": "rrrr",
-      "email": "eee",
-      "cell": "8654",
-      "salary": "5321"
+      "firstName": "Rana ",
+      "lastName": "Mahamud",
+      "email": "rana@gmail.com",
+      "cell": "01968425212",
+      "salary": "80000"
     }
   ],
   "comments": [
