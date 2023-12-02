@@ -11,6 +11,7 @@ const PORT = 3500;
 export class RestDataSource {
     baseUrl: string;
     auth_token?: string;
+    
     constructor(private http: HttpClient) {
         this.baseUrl = `${PROTOCOL}://${location.hostname}:${PORT}/`;
     }
