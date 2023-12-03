@@ -11,6 +11,7 @@ import { StoreFirstGuard } from "./storeFirst.guard";
 import { RouterModule } from '@angular/router';
 import { CheckoutComponent } from './store/checkout.component';
 import { CartDetailComponent } from './store/cartDetail.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { CartDetailComponent } from './store/cartDetail.component';
         canActivate: [StoreFirstGuard]
       },
       { path: "**", redirectTo: "/store" }
-      ])],
+      ]),
+    BrowserAnimationsModule],
   
   providers: [
     provideClientHydration(),
