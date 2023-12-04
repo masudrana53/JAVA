@@ -57,13 +57,6 @@
       "address": "Mirpur"
     },
     {
-      "id": 9,
-      "name": "fsdf",
-      "gender": "male",
-      "email": "fsdfsd",
-      "address": "Mirpur"
-    },
-    {
       "id": 10,
       "name": "FSSDF",
       "gender": "female",
@@ -71,6 +64,17 @@
       "subject": [
         "JEE",
         "NT"
+      ],
+      "address": "Mirpur"
+    },
+    {
+      "id": 11,
+      "name": "dfsdf",
+      "gender": "male",
+      "email": "fdsds",
+      "subject": [
+        "JEE",
+        "WEB"
       ],
       "address": "Mirpur"
     }
